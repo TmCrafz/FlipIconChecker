@@ -68,18 +68,14 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
 
     public FlipIconChecker(Context context) {
         super(context);
-        if (!isInEditMode()) {
-            init(context, null);
-        }
+
+        init(context, null);
     }
 
     public FlipIconChecker(Context context, AttributeSet attr) {
         super(context, attr);
 
-        setOnClickListener(this);
-        if (!isInEditMode()) {
-            init(context, attr);
-        }
+        init(context, attr);
     }
 
     private void init(Context context, AttributeSet attr) {
@@ -93,16 +89,13 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
         mView_parent_check = (FrameLayout) view.findViewById(R.id.layout_parent_check);
 
         try {
-            mFrontDrawableResource = a.getResourceId(R. styleable.FlipIconChecker_frontSrc, R.drawable.circle_unchecked);
-            mBackDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_backSrc, R.drawable.circle_checked);
-            mCheckDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_checkSrc, R.drawable.ic_check);
+            //mFrontDrawableResource = a.getResourceId(R. styleable.FlipIconChecker_frontSrc, R.drawable.circle_unchecked);
+            //mBackDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_backSrc, R.drawable.circle_checked);
+            //mCheckDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_checkSrc, R.drawable.ic_checked_72dp);
             mDuration = a.getInteger(R.styleable.FlipIconChecker_duration, 200);
-            mCheckDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_checkSrc, R.drawable.ic_check);
             int frontViewId = a.getResourceId(R.styleable.FlipIconChecker_frontSrc, R.layout.front_view_default);
             int backViewId = a.getResourceId(R.styleable.FlipIconChecker_backSrc, R.layout.back_view_default);
             int checkViewId = a.getResourceId(R.styleable.FlipIconChecker_checkView, R.layout.check_view_default);
-
-            Log.d(TAG, "FrontViewLayoutId: " + frontViewId);
 
             mView_front = inflater.inflate(frontViewId, this, false).getRootView();
             mView_back = inflater.inflate(backViewId, this, false).getRootView();
@@ -111,29 +104,18 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
             mView_parent_front.addView(mView_front);
             mView_parent_back.addView(mView_back);
             mView_parent_check.addView(mView_check);
-            /*
-            ViewGroup.LayoutParams params = mView_parent_check.getLayoutParams();
-            params.width = mView_back.getWidth();
-            params.height = mView_back.getHeight();
-            mView_parent_check.setLayoutParams(params);
-            mView_parent_check.addView(mView_check);// mView_back.getWidth(), mView_back.getHeight()
-            */
 
         } finally {
             a.recycle();
         }
 
-
-
-        /*
-        mImageView = (ImageView) findViewById(R.id.imageView);
-        mImageView.setImageResource(mFrontDrawableResource);
-        */
-        //mImageViewCheck = (ImageView) findViewById(R.id.imageViewCheck);
-        //mImageViewCheck.setImageResource(mCheckDrawableResource);
-
-
         setOnClickListener(this);
+        if (!isInEditMode()) {
+            initAnimation();
+        }
+    }
+
+    private void initAnimation() {
         mIsChecked = false;
         mIsInAnim = false;
         // Check animation
