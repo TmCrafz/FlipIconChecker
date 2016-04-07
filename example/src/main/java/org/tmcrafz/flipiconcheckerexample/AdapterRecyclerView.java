@@ -41,8 +41,6 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
         if (m_selections.get(i)) {
             viewHolder.m_flipIconChecker.setSelected(true);
         }
-
-
     }
 
     @Override

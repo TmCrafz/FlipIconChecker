@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FlipIconCheckerExample</string>
+    <string name="app_name">FlipIconChecker Example</string>
 
     <string-array name="cities">
         <item>Berlin</item>
