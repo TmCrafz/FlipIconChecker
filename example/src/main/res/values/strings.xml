@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">FlipIconCheckerExample</string>
+
+    <string-array name="cities">
+        <item>Berlin</item>
+        <item>Paris</item>
+        <item>Amsterdam</item>>
+        <item>London</item>
+        <item>Budapest</item>
+        <item>Athens</item>
+        <item>Moscow</item>
+        <item>Oslo</item>
+        <item>Rome</item>
+        <item>Stockholm</item>
+    </string-array>
+
 </resources>
