@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -28,12 +29,16 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
     // The view which is flipping to the front when icon is clicked
     // the view have a custom child view
     private FrameLayout mView_parent_back;
+    // The view which is scale in when the view is flipped after checking
+    // the view have a custom child view
+    private FrameLayout mView_parent_check;
     // The custom view which get added to the parent front view
     private View mView_front;
     // The cutsom view which get added to the parent back view
     private View mView_back;
-    // The picture which is scale in when the view is flipped after checking
-    private ImageView mImageViewCheck;
+    // The cutsom view which get added to the parent back view
+    private View mView_check;
+
 
 
     // The duration of the whole animation
@@ -85,6 +90,7 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
 
         mView_parent_front = (FrameLayout) view.findViewById(R.id.layout_parent_front);
         mView_parent_back = (FrameLayout) view.findViewById(R.id.layout_parent_back);
+        mView_parent_check = (FrameLayout) view.findViewById(R.id.layout_parent_check);
 
         try {
             mFrontDrawableResource = a.getResourceId(R. styleable.FlipIconChecker_frontSrc, R.drawable.circle_unchecked);
@@ -94,17 +100,25 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
             mCheckDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_checkSrc, R.drawable.ic_check);
             int frontViewId = a.getResourceId(R.styleable.FlipIconChecker_frontSrc, R.layout.front_view_default);
             int backViewId = a.getResourceId(R.styleable.FlipIconChecker_backSrc, R.layout.back_view_default);
+            int checkViewId = a.getResourceId(R.styleable.FlipIconChecker_checkView, R.layout.check_view_default);
 
             Log.d(TAG, "FrontViewLayoutId: " + frontViewId);
 
             mView_front = inflater.inflate(frontViewId, this, false).getRootView();
             mView_back = inflater.inflate(backViewId, this, false).getRootView();
+            mView_check = inflater.inflate(checkViewId, this, false).getRootView();
 
             mView_parent_front.addView(mView_front);
             mView_parent_back.addView(mView_back);
+            mView_parent_check.addView(mView_check);
+            /*
+            ViewGroup.LayoutParams params = mView_parent_check.getLayoutParams();
+            params.width = mView_back.getWidth();
+            params.height = mView_back.getHeight();
+            mView_parent_check.setLayoutParams(params);
+            mView_parent_check.addView(mView_check);// mView_back.getWidth(), mView_back.getHeight()
+            */
 
-            //mClockStyle = ClockStyle.fromInteger(a.getInteger(R.styleable.Clock_clockStyle, 0));
-            //mClockNumberRange = ClockNumberRange.fromInteger(a.getInteger(R.styleable.Clock_clockNumberRange, 0));
         } finally {
             a.recycle();
         }
@@ -115,9 +129,9 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
         mImageView = (ImageView) findViewById(R.id.imageView);
         mImageView.setImageResource(mFrontDrawableResource);
         */
-        mImageViewCheck = (ImageView) findViewById(R.id.imageViewCheck);
-        mImageViewCheck.setImageResource(mCheckDrawableResource);
-        
+        //mImageViewCheck = (ImageView) findViewById(R.id.imageViewCheck);
+        //mImageViewCheck.setImageResource(mCheckDrawableResource);
+
 
         setOnClickListener(this);
         mIsChecked = false;
@@ -130,18 +144,16 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
             public void onAnimationStart(Animator animation) {
                 // Optional
                 //mImageView.setImageResource(mFrontDrawableResource);
-                mView_parent_back.setVisibility(GONE);
-                mView_parent_front.setVisibility(VISIBLE);
+                showFrontLayout();
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 //mImageView.setImageResource(mBackDrawableResource);
-                mView_parent_front.setVisibility(GONE);
-                mView_parent_back.setVisibility(VISIBLE);
+                showBackLayout();
 
                 mAnimatorCheckPh2.start();
-                mImageViewCheck.setVisibility(VISIBLE);
+                mView_parent_check.setVisibility(VISIBLE);
                 mAnimatorScaleIn.start();
             }
 
@@ -188,20 +200,16 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
             public void onAnimationStart(Animator animation) {
                 // Optional
                 //mImageView.setImageResource(mBackDrawableResource);
-                mView_parent_front.setVisibility(GONE);
-                mView_parent_back.setVisibility(VISIBLE);
-
+                showBackLayout();
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 //mImageView.setImageResource(mFrontDrawableResource);
-                mView_parent_back.setVisibility(GONE);
-                mView_parent_front.setVisibility(VISIBLE);
-
+                showFrontLayout();
 
                 mAnimatorUnCheckPh2.start();
-                mImageViewCheck.setVisibility(GONE);
+                mView_parent_check.setVisibility(GONE);
             }
 
             @Override
@@ -241,14 +249,28 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
         ObjectAnimator objectAnimator = new ObjectAnimator();
         mAnimatorScaleIn = new AnimatorSet();
         mAnimatorScaleIn.playTogether(
-                objectAnimator.ofFloat(mImageViewCheck, "scaleX", 0.0f, 0.8f),
-                objectAnimator.ofFloat(mImageViewCheck, "scaleY", 0.0f, 0.8f)
+                objectAnimator.ofFloat(mView_parent_check, "scaleX", 0.0f, 0.8f),
+                objectAnimator.ofFloat(mView_parent_check, "scaleY", 0.0f, 0.8f)
         );
         mAnimatorScaleIn.setDuration(mDuration);
     }
 
     public void setOnFlipIconCheckerClickedListener(OnFlipIconCheckerClickedListener listener) { mOnFlipIconCheckerClickedListener = listener; }
 
+    // Test if it works !!
+    public void setFrontView(View frontView) {
+        mView_front = frontView;
+    }
+
+    public void setBackView(View backView) {
+        mView_back = backView;
+    }
+
+    public void setCheckView(View checkView) {
+        mView_check = checkView;
+    }
+
+    /*
     public void setFrontDrawableResource(int resource) {
         mFrontDrawableResource = resource;
         if (!mIsChecked) {
@@ -263,10 +285,13 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
         }
     }
 
+
     public void setCheckDrawableResource(int resource) {
         mCheckDrawableResource = resource;
         mImageViewCheck.setImageResource(mCheckDrawableResource);
     }
+
+    */
 
     public boolean isChecked() { return mIsChecked; }
 
@@ -296,14 +321,25 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
         mIsChecked = checked;
         if (checked) {
             //mImageView.setImageResource(mBackDrawableResource);
-            mImageViewCheck.setVisibility(VISIBLE);
+            showBackLayout();
+            mView_parent_check.setVisibility(VISIBLE);
         }
         else {
             //mImageView.setImageResource(mFrontDrawableResource);
-            mImageViewCheck.setVisibility(GONE);
+            showFrontLayout();
+            mView_parent_check.setVisibility(GONE);
         }
     }
 
+    private void showFrontLayout() {
+        mView_parent_back.setVisibility(GONE);
+        mView_parent_front.setVisibility(VISIBLE);
+    }
+
+    private void showBackLayout() {
+        mView_parent_front.setVisibility(GONE);
+        mView_parent_back.setVisibility(VISIBLE);
+    }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {

@@ -5,7 +5,7 @@
         <attr name="frontSrc" format="reference" />
         <!-- The drawable resource which is shown when the flipper is checked -->
         <attr name="backSrc" format="reference" />
-        <!-- The drawable which scale in when the view if flipped to the "checked" state  -->
+        <!-- The drawable which scale in when the view is flipped to the "checked" state  -->
         <attr name="checkSrc" format="reference" />
         <!-- The duration of the whole animation -->
         <attr name="duration" format="integer" />
@@ -15,6 +15,8 @@
         <attr name="frontView" format="reference" />
         <!-- The view which is shown when the flipper is checked -->
         <attr name="backView" format="reference" />
+        <!-- The view which scale in when the view is flipped to the "checked" state  -->
+        <attr name="checkView" format="reference" />
 
     </declare-styleable>
 </resources>
