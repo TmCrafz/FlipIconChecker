@@ -93,8 +93,8 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
             //mBackDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_backSrc, R.drawable.circle_checked);
             //mCheckDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_checkSrc, R.drawable.ic_checked_72dp);
             mDuration = a.getInteger(R.styleable.FlipIconChecker_duration, 200);
-            int frontViewId = a.getResourceId(R.styleable.FlipIconChecker_frontSrc, R.layout.front_view_default);
-            int backViewId = a.getResourceId(R.styleable.FlipIconChecker_backSrc, R.layout.back_view_default);
+            int frontViewId = a.getResourceId(R.styleable.FlipIconChecker_frontView, R.layout.front_view_default);
+            int backViewId = a.getResourceId(R.styleable.FlipIconChecker_backView, R.layout.back_view_default);
             int checkViewId = a.getResourceId(R.styleable.FlipIconChecker_checkView, R.layout.check_view_default);
 
             mView_front = inflater.inflate(frontViewId, this, false).getRootView();
@@ -277,12 +277,19 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
 
     public boolean isChecked() { return mIsChecked; }
 
+    public View getFrontView() { return mView_front; }
+
+    public View getBackView() { return mView_back; }
+
+    public View getCheckView() { return mView_check; }
+
+    /*
     public int getFrontDrawableResource() { return mFrontDrawableResource; }
 
     public int getBackDrawableResource() { return mFrontDrawableResource; }
 
     public int getCheckDrawableResource() { return mFrontDrawableResource; }
-
+    */
     // Change the state of the checker and start animations
     public void changeState() {
         if (!mIsInAnim) {

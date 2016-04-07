@@ -1,6 +1,7 @@
 package org.tmcrafz.flipiconcheckerexample;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,19 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
         String cityName = m_cities.get(i);
 
         viewHolder.m_txtCityName.setText(cityName);
+
+        /* We want to show the first letter of the city name in the flipIconChecker.
+         * The custom front layout which we have defined before and have added to the flipIconChecker
+         * has a TextView for this purpose.
+         */
+        String firstLetter = cityName.substring(0, 1);
+        // Get the front view (which includes the TextView)
+        View frontView = viewHolder.m_flipIconChecker.getFrontView();
+        // Now we can get the TextView of the view
+        TextView txt_cityFirstChar = (TextView) frontView.findViewById(R.id.txt_cityFirstLetter);
+        // Add the first letter to the TextView. Now it is shown at the front of the FlipIconChecker
+        txt_cityFirstChar.setText(firstLetter);
+        
         if (m_selections.get(i)) {
             viewHolder.m_flipIconChecker.setSelected(true);
         }
@@ -55,7 +69,6 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
         private TextView m_txtCityName;
 
         private SparseBooleanArray m_selections;
-
 
         public CitiesViewHolder(final View itemView, SparseBooleanArray selections) {
             super(itemView);
