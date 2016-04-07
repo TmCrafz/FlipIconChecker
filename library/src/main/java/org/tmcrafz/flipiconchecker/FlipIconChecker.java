@@ -52,19 +52,21 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
 
     public FlipIconChecker(Context context) {
         super(context);
-        init(context, null);
+        if (!isInEditMode()) {
+            init(context, null);
+        }
     }
 
     public FlipIconChecker(Context context, AttributeSet attr) {
         super(context, attr);
 
-
         setOnClickListener(this);
-        init(context, attr);
+        if (!isInEditMode()) {
+            init(context, attr);
+        }
     }
 
     private void init(Context context, AttributeSet attr) {
-
         TypedArray a = context.getTheme().obtainStyledAttributes(attr, R.styleable.FlipIconChecker, 0, 0);
         try {
             mFrontDrawableResource = a.getResourceId(R. styleable.FlipIconChecker_frontSrc, R.drawable.circle_unchecked);
