@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -21,9 +22,19 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
 
     private OnFlipIconCheckerClickedListener mOnFlipIconCheckerClickedListener;
 
-    private ImageView mImageView;
+    // The view which is shown when the icon is unchecked
+    // the view have a custom child view
+    private FrameLayout mView_parent_front;
+    // The view which is flipping to the front when icon is clicked
+    // the view have a custom child view
+    private FrameLayout mView_parent_back;
+    // The custom view which get added to the parent front view
+    private View mView_front;
+    // The cutsom view which get added to the parent back view
+    private View mView_back;
     // The picture which is scale in when the view is flipped after checking
     private ImageView mImageViewCheck;
+
 
     // The duration of the whole animation
     private long mDuration;
@@ -68,24 +79,45 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
 
     private void init(Context context, AttributeSet attr) {
         TypedArray a = context.getTheme().obtainStyledAttributes(attr, R.styleable.FlipIconChecker, 0, 0);
+
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view = inflater.inflate(R.layout.flip_icon_checker, this, true);
+
+        mView_parent_front = (FrameLayout) view.findViewById(R.id.layout_parent_front);
+        mView_parent_back = (FrameLayout) view.findViewById(R.id.layout_parent_back);
+
         try {
             mFrontDrawableResource = a.getResourceId(R. styleable.FlipIconChecker_frontSrc, R.drawable.circle_unchecked);
             mBackDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_backSrc, R.drawable.circle_checked);
             mCheckDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_checkSrc, R.drawable.ic_check);
             mDuration = a.getInteger(R.styleable.FlipIconChecker_duration, 200);
+            mCheckDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_checkSrc, R.drawable.ic_check);
+            int frontViewId = a.getResourceId(R.styleable.FlipIconChecker_frontSrc, R.layout.front_view_default);
+            int backViewId = a.getResourceId(R.styleable.FlipIconChecker_backSrc, R.layout.back_view_default);
+
+            Log.d(TAG, "FrontViewLayoutId: " + frontViewId);
+
+            mView_front = inflater.inflate(frontViewId, this, false).getRootView();
+            mView_back = inflater.inflate(backViewId, this, false).getRootView();
+
+            mView_parent_front.addView(mView_front);
+            mView_parent_back.addView(mView_back);
+
             //mClockStyle = ClockStyle.fromInteger(a.getInteger(R.styleable.Clock_clockStyle, 0));
             //mClockNumberRange = ClockNumberRange.fromInteger(a.getInteger(R.styleable.Clock_clockNumberRange, 0));
         } finally {
             a.recycle();
         }
 
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        inflater.inflate(R.layout.flip_icon_checker, this, true);
 
+
+        /*
         mImageView = (ImageView) findViewById(R.id.imageView);
         mImageView.setImageResource(mFrontDrawableResource);
+        */
         mImageViewCheck = (ImageView) findViewById(R.id.imageViewCheck);
         mImageViewCheck.setImageResource(mCheckDrawableResource);
+        
 
         setOnClickListener(this);
         mIsChecked = false;
@@ -97,12 +129,17 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
             @Override
             public void onAnimationStart(Animator animation) {
                 // Optional
-                mImageView.setImageResource(mFrontDrawableResource);
+                //mImageView.setImageResource(mFrontDrawableResource);
+                mView_parent_back.setVisibility(GONE);
+                mView_parent_front.setVisibility(VISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                mImageView.setImageResource(mBackDrawableResource);
+                //mImageView.setImageResource(mBackDrawableResource);
+                mView_parent_front.setVisibility(GONE);
+                mView_parent_back.setVisibility(VISIBLE);
+
                 mAnimatorCheckPh2.start();
                 mImageViewCheck.setVisibility(VISIBLE);
                 mAnimatorScaleIn.start();
@@ -150,12 +187,19 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
             @Override
             public void onAnimationStart(Animator animation) {
                 // Optional
-                mImageView.setImageResource(mBackDrawableResource);
+                //mImageView.setImageResource(mBackDrawableResource);
+                mView_parent_front.setVisibility(GONE);
+                mView_parent_back.setVisibility(VISIBLE);
+
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                mImageView.setImageResource(mFrontDrawableResource);
+                //mImageView.setImageResource(mFrontDrawableResource);
+                mView_parent_back.setVisibility(GONE);
+                mView_parent_front.setVisibility(VISIBLE);
+
+
                 mAnimatorUnCheckPh2.start();
                 mImageViewCheck.setVisibility(GONE);
             }
@@ -207,14 +251,16 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
 
     public void setFrontDrawableResource(int resource) {
         mFrontDrawableResource = resource;
-        if (!mIsChecked)
-            mImageView.setImageResource(mFrontDrawableResource);
+        if (!mIsChecked) {
+            //mImageView.setImageResource(mFrontDrawableResource);
+        }
     }
 
     public void setBackDrawableResource(int resource) {
         mBackDrawableResource = resource;
-        if (mIsChecked)
-            mImageView.setImageResource(mBackDrawableResource);
+        if (mIsChecked) {
+            //mImageView.setImageResource(mBackDrawableResource);
+        }
     }
 
     public void setCheckDrawableResource(int resource) {
@@ -249,11 +295,11 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
     public void setChecked(boolean checked) {
         mIsChecked = checked;
         if (checked) {
-            mImageView.setImageResource(mBackDrawableResource);
+            //mImageView.setImageResource(mBackDrawableResource);
             mImageViewCheck.setVisibility(VISIBLE);
         }
         else {
-            mImageView.setImageResource(mFrontDrawableResource);
+            //mImageView.setImageResource(mFrontDrawableResource);
             mImageViewCheck.setVisibility(GONE);
         }
     }

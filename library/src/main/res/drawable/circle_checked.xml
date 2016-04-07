@@ -5,6 +5,6 @@ android:shape="oval" >
         android:color="@android:color/darker_gray" />
 
     <size
-        android:height="24dp"
-        android:width="24dp" />
+        android:height="48dp"
+        android:width="48dp" />
 </shape>
