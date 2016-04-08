@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         m_recyclerView.setLayoutManager(layoutManager);
 
         String[] cities = getResources().getStringArray(R.array.cities);
-        AdapterRecyclerView adapter = new AdapterRecyclerView(Arrays.asList(cities));
+        AdapterRecyclerViewCity adapter = new AdapterRecyclerViewCity(Arrays.asList(cities));
         m_recyclerView.setAdapter(adapter);
     }
 }

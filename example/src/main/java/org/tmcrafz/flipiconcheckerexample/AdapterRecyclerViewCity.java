@@ -1,7 +1,6 @@
 package org.tmcrafz.flipiconcheckerexample;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,18 +9,16 @@ import android.widget.TextView;
 
 import org.tmcrafz.flipiconchecker.FlipIconChecker;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerView.CitiesViewHolder> {
+public class AdapterRecyclerViewCity extends RecyclerView.Adapter<AdapterRecyclerViewCity.CitiesViewHolder> {
 
-    private final static String TAG = AdapterRecyclerView.class.getSimpleName();
+    private final static String TAG = AdapterRecyclerViewCity.class.getSimpleName();
 
     private List<String> m_cities;
     private SparseBooleanArray m_selections;
 
-    public AdapterRecyclerView(List<String> cities) {
+    public AdapterRecyclerViewCity(List<String> cities) {
         m_cities = cities;
         m_selections = new SparseBooleanArray();
     }
@@ -29,7 +26,7 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
     @Override
     public CitiesViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.recyclerview_entry, viewGroup, false);
+                .inflate(R.layout.adapter_recyclerview_city, viewGroup, false);
 
         return new CitiesViewHolder(itemView, m_selections);
     }
@@ -51,7 +48,7 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
         TextView txt_cityFirstChar = (TextView) frontView.findViewById(R.id.txt_cityFirstLetter);
         // Add the first letter to the TextView. Now it is shown at the front of the FlipIconChecker
         txt_cityFirstChar.setText(firstLetter);
-        
+
         if (m_selections.get(i)) {
             viewHolder.m_flipIconChecker.setSelected(true);
         }
