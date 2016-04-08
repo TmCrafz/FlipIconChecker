@@ -1,4 +1,4 @@
-package org.tmcrafz.flipiconcheckerexample;
+package org.tmcrafz.flipiconcheckerexample.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.tmcrafz.flipiconchecker.FlipIconChecker;
+import org.tmcrafz.flipiconcheckerexample.R;
 
 import java.util.List;
 
