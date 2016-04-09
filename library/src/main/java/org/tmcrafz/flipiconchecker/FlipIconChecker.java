@@ -23,6 +23,9 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
 
     private OnFlipIconCheckerClickedListener mOnFlipIconCheckerClickedListener;
 
+    // The duration of the whole animation
+    private long mDuration;
+
     // The view which is shown when the icon is unchecked
     // the view have a custom child view
     private FrameLayout mView_parent_front;
@@ -39,15 +42,12 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
     // The cutsom view which get added to the parent back view
     private View mView_check;
 
-
-
-    // The duration of the whole animation
-    private long mDuration;
+    // The drawable resource ids are zero if the user dont specifies drawables
     // The drawable resource which is shown when the flipper is unchecked
     private int mFrontDrawableResource;
     // The drawable resource which is shown when the flipper is checked
     private int mBackDrawableResource;
-
+    // The drawable resource which is "scaling" in when the flipper is checked
     private int mCheckDrawableResource;
 
     private boolean mIsChecked;
@@ -89,20 +89,49 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
         mView_parent_check = (FrameLayout) view.findViewById(R.id.layout_parent_check);
 
         try {
-            //mFrontDrawableResource = a.getResourceId(R. styleable.FlipIconChecker_frontSrc, R.drawable.circle_unchecked);
-            //mBackDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_backSrc, R.drawable.circle_checked);
-            //mCheckDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_checkSrc, R.drawable.ic_checked_72dp);
+            // Zero when nothing is specifies so we can check later if user have specified a resource id
+            mFrontDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_frontSrc, 0);
+            mBackDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_backSrc, 0);
+            mCheckDrawableResource = a.getResourceId(R.styleable.FlipIconChecker_checkSrc, 0);
+
             mDuration = a.getInteger(R.styleable.FlipIconChecker_duration, 200);
-            int frontViewId = a.getResourceId(R.styleable.FlipIconChecker_frontView, R.layout.front_view_default);
-            int backViewId = a.getResourceId(R.styleable.FlipIconChecker_backView, R.layout.back_view_default);
-            int checkViewId = a.getResourceId(R.styleable.FlipIconChecker_checkView, R.layout.check_view_default);
 
+            // Create Front side
+            // Only load custom layout when user dont specified a front drawable resource
+            int frontViewId = R.layout.front_view_default;
+            if (mFrontDrawableResource == 0) {
+                frontViewId = a.getResourceId(R.styleable.FlipIconChecker_frontView, R.layout.front_view_default);
+            }
             mView_front = inflater.inflate(frontViewId, this, false).getRootView();
-            mView_back = inflater.inflate(backViewId, this, false).getRootView();
-            mView_check = inflater.inflate(checkViewId, this, false).getRootView();
-
+            // Add the custom drawable if there is one
+            if (mFrontDrawableResource != 0) {
+                ImageView frontImageView = (ImageView) mView_front;
+                frontImageView.setImageResource(mFrontDrawableResource);
+            }
             mView_parent_front.addView(mView_front);
+
+            // Crate back side
+            int backViewId = R.layout.back_view_default;
+            if (mBackDrawableResource == 0) {
+                backViewId = a.getResourceId(R.styleable.FlipIconChecker_backView, R.layout.back_view_default);
+            }
+            mView_back = inflater.inflate(backViewId, this, false).getRootView();
+            if (mBackDrawableResource != 0) {
+                ImageView backImageView = (ImageView) mView_back;
+                backImageView.setImageResource(mBackDrawableResource);
+            }
             mView_parent_back.addView(mView_back);
+
+            // Create check view
+            int checkViewId = R.layout.check_view_default;
+            if (mBackDrawableResource == 0) {
+                checkViewId = a.getResourceId(R.styleable.FlipIconChecker_checkView, R.layout.check_view_default);
+            }
+            mView_check = inflater.inflate(checkViewId, this, false).getRootView();
+            if (mBackDrawableResource != 0) {
+                ImageView checkImageView = (ImageView) mView_check;
+                checkImageView.setImageResource(mCheckDrawableResource);
+            }
             mView_parent_check.addView(mView_check);
 
         } finally {
