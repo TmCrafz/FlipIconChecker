@@ -40,7 +40,7 @@ public class FragmentCities extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_cities, container, false);
 
-        m_recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        m_recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewCities);
         m_recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());

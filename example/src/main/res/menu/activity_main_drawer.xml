@@ -7,6 +7,11 @@
             android:icon="@drawable/ic_android_24dp"
             android:title="@string/nav_example_1" />
 
+        <item
+            android:id="@+id/nav_example_2"
+            android:icon="@drawable/ic_android_24dp"
+            android:title="@string/nav_example_2" />
+
     </group>
 
 

@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.tmcrafz.flipiconcheckerexample.fragments.FragmentCities;
+import org.tmcrafz.flipiconcheckerexample.fragments.FragmentColors;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -82,6 +83,15 @@ public class MainActivity extends AppCompatActivity
 
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         if (id == R.id.nav_example_1) {
+            if (!(m_actualFragment instanceof FragmentColors)) {
+                FragmentColors fragmentColors = FragmentColors.newInstance();
+                m_actualFragment = fragmentColors;
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, fragmentColors, FragmentCities.TAG)
+                        .commit();
+            }
+        }
+        else if (id == R.id.nav_example_2) {
             if (!(m_actualFragment instanceof FragmentCities)) {
                 FragmentCities fragmentCities = FragmentCities.newInstance();
                 m_actualFragment = fragmentCities;

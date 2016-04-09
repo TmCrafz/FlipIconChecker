@@ -1,6 +1,7 @@
 package org.tmcrafz.flipiconcheckerexample.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,9 +51,7 @@ public class AdapterRecyclerViewCity extends RecyclerView.Adapter<AdapterRecycle
         // Add the first letter to the TextView. Now it is shown at the front of the FlipIconChecker
         txt_cityFirstChar.setText(firstLetter);
 
-        if (m_selections.get(i)) {
-            viewHolder.m_flipIconChecker.setSelected(true);
-        }
+        viewHolder.m_flipIconChecker.setChecked(m_selections.get(i));
     }
 
     @Override
@@ -73,6 +72,7 @@ public class AdapterRecyclerViewCity extends RecyclerView.Adapter<AdapterRecycle
             m_flipIconChecker = (FlipIconChecker) itemView.findViewById(R.id.flipChecker);
             m_txtCityName = (TextView) itemView.findViewById(R.id.txt_cityName);
             m_selections = selections;
+            m_flipIconChecker.setOnFlipIconCheckerClickedListener(this);
         }
 
         @Override
