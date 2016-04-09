@@ -8,21 +8,11 @@
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <org.tmcrafz.flipiconchecker.FlipIconChecker
-        android:id="@+id/flipChecker"
-        android:padding="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/flipChecker" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
