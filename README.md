@@ -20,8 +20,10 @@ By default, when you dont specify an extra atrribute, the front layout contains 
 ```
 
 You can specify your own custom layouts for the front, back and the layout which "scale" in when the view get checked.
-When you use custom layouts its best you set "layout_width" and "layout_height" of the FlipIconChecker to "wrap_content".
-You get the best results when all custom layouts have the same size. The checkView layout, which you specify get scaled from 0 to 80% of his full size. 
+When you use custom layouts it is best you set "layout_width" and "layout_height" of the FlipIconChecker to "wrap_content".
+You get the best results when all custom layouts have the same size. The checkView layout, which you specify get scaled from 0% to 80% of his full size.
+With the "duration" attribute you can set a custom duration for the animation from one side to the other side. By default one flip takes 200ms.
+
 
 ```xml
 <org.tmcrafz.flipiconchecker.FlipIconChecker
@@ -30,8 +32,8 @@ You get the best results when all custom layouts have the same size. The checkVi
         android:layout_height="wrap_content"
         app:frontView="@layout/custom_front_layout"
         app:backView="@layout/custom_back_layout"
-        app:checkView="@layout/custom_check_layout" />
-
+        app:checkView="@layout/custom_check_layout"
+        app:duration="250" />
 ```
 
 
