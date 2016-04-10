@@ -45,15 +45,21 @@ Instead of custom layouts you can specify custom drawables. If you have specifie
         app:checkSrc="@drawable/ic_camera" />
 ```
 
+Get the state of the FlipIconChecker:
+```java
+flipIconChecker.isChecked();
+```
+
 You can add a click listener to the flipIconChecker:
 
 ```java
-flipIconChecker.setOnFlipIconCheckerClickedListener(new FlipIconChecker.OnFlipIconCheckerClickedListener() {
-                @Override
-                public void onFlipIconCheckerClicked() {
-                    // Do something
-                }
-            });
+flipIconChecker.setOnFlipIconCheckerClickedListener(
+                new FlipIconChecker.OnFlipIconCheckerClickedListener() {
+      @Override
+      public void onFlipIconCheckerClicked() {
+                // Do something
+      }
+});
 ```
 
 ##License
