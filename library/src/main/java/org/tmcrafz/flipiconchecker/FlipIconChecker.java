@@ -268,17 +268,23 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
 
     public void setOnFlipIconCheckerClickedListener(OnFlipIconCheckerClickedListener listener) { mOnFlipIconCheckerClickedListener = listener; }
 
-    // Test if it works !!
     public void setFrontView(View frontView) {
         mView_front = frontView;
+        // Remove old views before adding the new one, so the new view is shown
+        mView_parent_front.removeAllViews();
+        mView_parent_front.addView(mView_front);
     }
 
     public void setBackView(View backView) {
         mView_back = backView;
+        mView_parent_back.removeAllViews();
+        mView_parent_back.addView(mView_back);
     }
 
     public void setCheckView(View checkView) {
         mView_check = checkView;
+        mView_parent_check.removeAllViews();
+        mView_parent_check.addView(mView_check);
     }
 
     /*

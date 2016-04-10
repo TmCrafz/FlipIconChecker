@@ -9,9 +9,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import org.tmcrafz.flipiconchecker.FlipIconChecker;
 import org.tmcrafz.flipiconcheckerexample.fragments.FragmentCities;
 import org.tmcrafz.flipiconcheckerexample.fragments.FragmentColors;
 
@@ -41,6 +44,13 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         // Select first menu item of drawer
         navigationView.getMenu().performIdentifierAction(R.id.nav_example_1, 0);
+
+        /*
+        FlipIconChecker flipIconChecker = (FlipIconChecker) findViewById(R.id.flipChecker);
+        View view = getLayoutInflater().inflate(R.layout.custom_front_color, flipIconChecker, false);
+        flipIconChecker.setFrontView(view);
+        */
+
     }
 
     @Override

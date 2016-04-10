@@ -49,6 +49,10 @@ public class AdapterRecyclerViewColors extends RecyclerView.Adapter<AdapterRecyc
 
         viewHolder.m_txtColorName.setText(colorName);
 
+        //View view = LayoutInflater.from(m_context).inflate(R.layout.custom_front_city, null, false);
+        //viewHolder.m_flipIconChecker.setFrontView(view);
+
+
         /* We want to show the first letter of the color name in the flipIconChecker.
          * The custom front layout which we have defined before and have added to the flipIconChecker
          * has a TextView for this purpose.
