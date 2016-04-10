@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="FlipIconChecker">
+        <!-- The view which is shown when the flipper is unchecked -->
+        <attr name="frontView" format="reference" />
+        <!-- The view which is shown when the flipper is checked -->
+        <attr name="backView" format="reference" />
+        <!-- The view which scale in when the view is flipped to the "checked" state  -->
+        <attr name="checkView" format="reference" />
         <!-- The drawable resource which is shown when the flipper is unchecked -->
         <attr name="frontSrc" format="reference" />
         <!-- The drawable resource which is shown when the flipper is checked -->
@@ -9,14 +15,5 @@
         <attr name="checkSrc" format="reference" />
         <!-- The duration of the whole animation -->
         <attr name="duration" format="integer" />
-
-
-        <!-- The view which is shown when the flipper is unchecked -->
-        <attr name="frontView" format="reference" />
-        <!-- The view which is shown when the flipper is checked -->
-        <attr name="backView" format="reference" />
-        <!-- The view which scale in when the view is flipped to the "checked" state  -->
-        <attr name="checkView" format="reference" />
-
     </declare-styleable>
 </resources>

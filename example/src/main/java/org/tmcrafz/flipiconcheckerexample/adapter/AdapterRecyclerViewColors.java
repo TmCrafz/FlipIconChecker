@@ -72,6 +72,7 @@ public class AdapterRecyclerViewColors extends RecyclerView.Adapter<AdapterRecyc
         bgShape.setColor(ContextCompat.getColor(m_context, colorResource));
 
         viewHolder.m_flipIconChecker.setChecked(m_selections.get(i));
+
     }
 
     @Override
