@@ -23,7 +23,12 @@ public class MainActivity extends AppCompatActivity
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private static final String KEY_NAV_POS = "key_nav_pos";
+
     private Fragment m_actualFragment;
+    private NavigationView m_navigationView;
+
+    private int m_navPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +45,11 @@ public class MainActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        m_navigationView = (NavigationView) findViewById(R.id.nav_view);
+        m_navigationView.setNavigationItemSelectedListener(this);
         // Select first menu item of drawer
-        navigationView.getMenu().performIdentifierAction(R.id.nav_example_1, 0);
+        m_navigationView.getMenu().performIdentifierAction(R.id.nav_example_1, 0);
+        m_navPos = R.id.nav_example_1;
 
         /*
         FlipIconChecker flipIconChecker = (FlipIconChecker) findViewById(R.id.flipChecker);
@@ -94,6 +100,7 @@ public class MainActivity extends AppCompatActivity
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         if (id == R.id.nav_example_1) {
             if (!(m_actualFragment instanceof FragmentColors)) {
+                m_navPos = R.id.nav_example_1;
                 FragmentColors fragmentColors = FragmentColors.newInstance();
                 m_actualFragment = fragmentColors;
                 fragmentManager.beginTransaction()
@@ -103,6 +110,7 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_example_2) {
             if (!(m_actualFragment instanceof FragmentCities)) {
+                m_navPos = R.id.nav_example_2;
                 FragmentCities fragmentCities = FragmentCities.newInstance();
                 m_actualFragment = fragmentCities;
                 fragmentManager.beginTransaction()
@@ -114,5 +122,21 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+        protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_NAV_POS, m_navPos);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            m_navPos = savedInstanceState.getInt(KEY_NAV_POS);
+            // Select first menu item of drawer
+            m_navigationView.getMenu().performIdentifierAction(m_navPos, 0);
+        }
     }
 }
