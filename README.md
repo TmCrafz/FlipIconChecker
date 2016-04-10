@@ -57,7 +57,8 @@ flipIconChecker.setOnFlipIconCheckerClickedListener(new FlipIconChecker.OnFlipIc
 ```
 
 ##License
-HelloCharts	
+
+    FlipIconChecker	
     Copyright 2016 Tim Sterzel
 
     Licensed under the Apache License, Version 2.0 (the "License");
