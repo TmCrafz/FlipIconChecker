@@ -131,6 +131,8 @@ public class FlipIconChecker extends FrameLayout implements View.OnClickListener
                 checkImageView.setImageResource(m_checkDrawableResource);
             }
             m_viewParentCheck.addView(m_viewCheck);
+            m_viewParentCheck.setScaleX(0.8f);
+            m_viewParentCheck.setScaleY(0.8f);
 
         } finally {
             a.recycle();

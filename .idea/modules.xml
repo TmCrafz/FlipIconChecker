@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FlipIconChecker.iml" filepath="$PROJECT_DIR$/FlipIconChecker.iml" />
       <module fileurl="file://$PROJECT_DIR$/example/example.iml" filepath="$PROJECT_DIR$/example/example.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/flipiconchecker/flipiconchecker.iml" filepath="$PROJECT_DIR$/flipiconchecker/flipiconchecker.iml" />
     </modules>
   </component>
 </project>

@@ -83,4 +83,3 @@ public class AdapterRecyclerViewCity extends RecyclerView.Adapter<AdapterRecycle
 
 
 }
-
