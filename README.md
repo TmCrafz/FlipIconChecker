@@ -7,6 +7,11 @@ This library let you define a front and back layout, which get added to the Flip
 
 ## Usage
 
+#####Add this to your build.grandle:
+```
+compile 'org.tmcrafz.flipiconchecker:flipiconchecker:0.8.3'
+```
+
 By default, when you dont specify an extra atrribute, the front layout contains a red colored shape and a gray back, with a white check icon "scaling" in:
 
  Front: | Back: 
