@@ -1,5 +1,5 @@
 # FlipIconChecker
-This library let you define a front and back layout, which get added to the FlipIconChecker. The view flips with a animation to the other side when it is checked and a custom view scale in. This library makes it easy to make flipping views like Google in the Holo and Material Gmail app. Compatible with api level 15+.
+This library let you define a front and back layout, which get added to the FlipIconChecker. The view flips with a animation to the other side when it is checked and a custom view scale in. This library makes it easy to make flipping views like Google in the Holo and Material Gmail app or the material sms app. Compatible with api level 15+.
 
 ## Preview
 
