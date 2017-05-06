@@ -7,7 +7,7 @@ This library let you define a front and back layout, which get added to the Flip
 
 ## Usage
 
-#####Add this to your build.grandle:
+##### Add this to your build.grandle:
 ```
 compile 'org.tmcrafz.flipiconchecker:flipiconchecker:0.8.3'
 ```
@@ -67,7 +67,7 @@ flipIconChecker.setOnFlipIconCheckerClickedListener(
 });
 ```
 
-##License
+## License
 
     FlipIconChecker	
     Copyright 2016 Tim Sterzel
